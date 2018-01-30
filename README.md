@@ -10,15 +10,15 @@ If you do not have Java Installed, then it can be installed [here](https://java.
 Once you have Java Installed, you can now build and execute the solution. Go to the directory where the files are located(src) and run the following command:
 
 ```java
-javac Solution.java Seats.java  Venue.java  seatHolder.java SeatComparator.java
+javac YourJavafile.java
 ```
 
+The YourJavafile.java can be replaced with the Solution.java file and its dependencies. 
 
 Once this has been completed, you will have compiled .class files.Then the following command can be run to run the solution:
 ```java
-java Solution Seats Venue  seatHolder SeatComparator
+java YourJavafile
 ```
-
 Building and executing the test files is very similar to the procedure above.
 
 To build the tests use the following command:
