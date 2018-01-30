@@ -1,0 +1,10 @@
+package Venueresources;
+
+public class theater 
+{
+	int x;
+	int y;
+	Seats[][] Seating = new Seats[x][y];
+	
+
+}

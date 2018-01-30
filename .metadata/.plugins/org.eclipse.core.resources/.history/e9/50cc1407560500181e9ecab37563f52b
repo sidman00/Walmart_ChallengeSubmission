@@ -1,0 +1,17 @@
+package Venueresources;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class VenueTest {
+
+	@Test
+	public void FindBestSeatTest()
+	{
+		Venue Venuefortest = new Venue();
+		Venuefortest.populatetheater();
+		Venuefortest.findbestseat();
+	}
+
+}

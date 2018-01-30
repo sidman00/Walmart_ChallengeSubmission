@@ -1,0 +1,240 @@
+//Siddharth Ghatti
+//sg4ff@virginia.edu
+package Venueresources;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.InputMismatchException;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class Venue 
+{
+	//Field variables 
+	private Comparator<Seats> comparer = new SeatComparator();
+	private PriorityQueue<Seats> bestSeats = new PriorityQueue<Seats>(comparer); //Min heap that holds best seat at top
+	private Seats[][] Seating = new Seats[5][11]; //2-D array that holds all seats 
+	private int numberofSeats = 55; 
+	private Hashtable<Integer,Seats> seatHasher = new Hashtable<Integer,Seats>(); //Hash table for quick retrieval of each seat
+	public Seats[][] getSeating()  
+	{
+		return Seating;
+	}
+	public void setSeating(Seats[][] seating) 
+	{
+		Seating = seating;
+	}
+	
+	
+	
+	public int getNumberOfSeats() 
+	{
+		return numberofSeats;
+	}
+	public void setNumberofseats(int numberofseats) 
+	{
+		this.numberofSeats = numberofseats;
+	}
+	public Hashtable<Integer, Seats> getSeathasher() 
+	{
+		return seatHasher;
+	}
+	public Seats getFromSeatHasher(int x)
+	{
+		return this.seatHasher.get(x);
+	}
+	
+	//Getters and Setters Above 
+	
+	public int  findBestSeat() //Seats added to min-heap sorted by score, and seat with loweest score is returned 
+	{
+		bestSeats.clear();
+		for(int i = 0; i<5;i++)
+		{
+			for(int j = 0; j<11;j++)
+			{
+				if(Seating[i][j].getReserved()!=true)
+				{
+					bestSeats.add(Seating[i][j]);
+				}
+			}
+		}
+		return bestSeats.peek().getSeatId();
+	}
+	public void hashSeating() //Hashes all of the seats into a hash table for constant time lookup for later functions
+	{
+		int idcounter = 1; 
+		for(int i = 0; i<5;i++)
+		{
+			for(int j = 0; j<11;j++)
+			{
+				seatHasher.put(idcounter, Seating[i][j]);
+				idcounter+=1;
+			}
+		}
+		
+		
+	}
+	
+	public void populateTheater() //Populates the theater by creating 55 seat objects and adding them to 2d array
+	{
+		
+		
+		int counter1 = 1;
+		for(int i = 0; i<5;i++)
+		{
+			for(int j = 0; j<11; j++)
+			{
+				Seats seatpopulator = new Seats(false,i,j,counter1);
+				counter1+=1;
+				this.Seating[i][j]=seatpopulator;
+				seatpopulator.calculateScore(); //Each seat's score is calculated as well. Avoid cost of nested loops 
+			}
+		}
+	}
+	
+	
+	
+	public void printTheater() //Prints out the theater to the user. Every 10 seats printed, a new line is created 
+	{
+		System.out.println("-------|   Stage    |--------");
+		System.out.println();
+		int counter =0;
+		for(int i = 0; i<5;i++)
+		{
+			for(int j=0; j<11;j++)
+			{
+				if(counter<10)
+				{
+					if(this.Seating[i][j].getReserved()==false)
+					{
+						System.out.print(this.Seating[i][j].getSeatId()+" ");
+					}
+					if(this.Seating[i][j].getSeatId()<=9 || this.Seating[i][j].getReserved()==true)
+					{
+						System.out.print(" ");
+						if(this.Seating[i][j].getSeatId()<=9 && this.Seating[i][j].getReserved()==true)
+						{
+							System.out.print(" ");
+						}
+					}
+					counter+=1;
+				}
+				else
+				{
+					counter = 0;
+					if(this.Seating[i][j].getReserved()==false)
+					{
+						System.out.print(this.Seating[i][j].getSeatId()+" ");
+					}
+					System.out.println("                                  ");
+				}
+				
+			}
+		}
+			
+		
+	}
+	
+	
+	public  void introScreen() //Intro screen for each of the functions, print's out theater and basic info 
+	{
+		int seatsAvailable = this.getNumberOfSeats();
+		System.out.println();
+		this.printTheater();
+		System.out.println();
+		this.findBestSeat();
+		System.out.println();
+		System.out.println("Above are all the "+seatsAvailable+" seats available, our reccomended seat is  "+this.findBestSeat());
+		System.out.println();	
+	}
+	
+	
+	public synchronized void reserveSeat()
+	{
+		System.out.println("What Seat Would you like to reserve today?");
+		Scanner userInput = new Scanner(System.in);
+		try
+		{
+			int Choice = userInput.nextInt();
+			if(Choice>=1 && Choice <=55)
+			{
+				Seats seatofChoiceForReservation = this.getFromSeatHasher(Choice);
+				if(seatofChoiceForReservation.getReserved()==false)
+				{
+					Runnable holdRunner = new seatHolder();
+					Thread Holder = new Thread(holdRunner);
+					seatofChoiceForReservation.reserveSeat(this);
+					Holder.start();
+					System.out.println("Your Seat will be held for 30 sec for reservation");
+					System.out.println("To permenantley reserve the seat type in confirm. To exit to menu, type in exit");
+					if(userInput.nextLine().equals("confirm"))
+					{
+						System.out.println("The seat has been reserved");
+						((seatHolder) holdRunner).stop();
+						
+						
+					}
+					if(userInput.next().equals("exit"))
+					{
+						seatofChoiceForReservation.unReserveSeat(this);
+						System.out.println("Exiting to the main menu");	
+						((seatHolder) holdRunner).stop();
+							
+					}
+					
+				}
+				else
+				{
+					System.out.println("The Seat has already been booked ");
+				}
+			}
+			else
+			{
+				System.out.println("Error Invalid input, returning back to menu screen");
+			}
+		}
+		catch(InputMismatchException e)
+		{
+			System.out.println("Error Invalid input, returning back to the menu screen ");
+		}
+	
+	}
+	public synchronized  void cancelReservation()
+	{
+		System.out.println("What Seat would you like to cancel the reservation for");
+		Scanner seatChoice = new Scanner(System.in);
+		try
+		{
+			int choice = seatChoice.nextInt();
+			if(choice>=1 && choice <=55)
+			{
+				Seats seatofChoice = this.getFromSeatHasher(choice);
+				if(seatofChoice.unReserveSeat(this)==true)
+				{
+					System.out.println("The reservation has been cancelled");	
+				}
+			}
+			else
+			{
+				System.out.println("Error Invalid input, returning back to menu screen");
+			}
+			
+			
+		}
+		
+		catch(InputMismatchException e)
+		{
+			System.out.println("Error Invalid input, returning back to the menu screen ");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+		
+	
+
+}

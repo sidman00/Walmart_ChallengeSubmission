@@ -1,0 +1,8 @@
+package Venueresources;
+
+public class Show 
+{
+	String name;
+	int timeofshow;
+
+}

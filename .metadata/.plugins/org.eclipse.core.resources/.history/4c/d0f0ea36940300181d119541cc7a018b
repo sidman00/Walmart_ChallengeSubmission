@@ -1,0 +1,13 @@
+package Venueresources;
+
+public class Day
+{
+	int hours;
+	int minutes;
+	int seconds;
+	
+	
+	
+	
+
+}

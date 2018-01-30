@@ -1,0 +1,26 @@
+package Venueresources;
+
+public class Show 
+{
+	String name;
+	int timeofshow;
+	
+	Show(String newshowname,int newtimeofshow)
+	{
+		
+		name = newshowname;
+		timeofshow = newtimeofshow;
+	}
+	//getters
+	public String getshowname()
+	{
+		return this.name;
+	}
+	public int getshowtime()
+	{
+		
+		return this.timeofshow;
+	}
+	public 
+
+}
