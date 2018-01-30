@@ -1,0 +1,37 @@
+package Venueresources;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SeatsTest  //J Unit Tests for the Seat Class 
+{
+	@Test
+	public void seatCalculateScoreTest()
+	{
+		Seats testSeat = new Seats(false,3,5,1);
+		testSeat.calculateScore();
+		boolean Equality = false;
+		if(testSeat.getSeatScore()==0.0)
+		{
+			Equality=true;
+		}
+		assertTrue(Equality);
+		
+	}
+	
+	public void seatReserveSeatTest()
+	{
+		Seats testSeat = new Seat(false, 1,1,4);
+		
+		
+	}
+	
+	public void seatUnReserveSeatTest()
+	{
+		
+	}
+
+	
+
+}

@@ -1,0 +1,12 @@
+package Venueresources;
+import java.util.Comparator;
+public class SeatComparator implements Comparator<Seats> 
+{
+	@Override
+	public int compare(Seats a, Seats b)
+	{
+		return 0;
+		
+	}
+
+}

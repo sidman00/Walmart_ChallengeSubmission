@@ -1,0 +1,9 @@
+package Venueresources;
+
+public class theater 
+{
+	int theaterxdimension;
+	int theaterydimensiony;
+	Seats[][] Seating = new Seats[theaterxdimension][theaterxdimension];
+	
+}

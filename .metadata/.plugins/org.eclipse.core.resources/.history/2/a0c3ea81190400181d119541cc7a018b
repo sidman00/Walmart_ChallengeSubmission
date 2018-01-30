@@ -1,0 +1,50 @@
+package Venueresources;
+
+public class Show 
+{
+	String showname;
+	int timeofshow;
+	int endofshow;
+	int numberofseatsavailable;
+	
+	Show(String newshowname,int newtimeofshow, int newendofshow)
+	{
+		
+		showname = newshowname;
+		timeofshow = newtimeofshow;
+		endofshow=newendofshow;
+		numberofseatsavailable=55;
+	}
+	//getters
+	public String getshowname()
+	{
+		return this.showname;
+	}
+	public int getshowtime()
+	{
+		
+		return this.timeofshow;
+	}
+	//setters
+	public void setshowtime(int newshowtime)
+	{
+		
+		this.timeofshow=newshowtime;
+	}
+	public void setname(String showname)
+	{
+		
+		this.showname=showname;
+	}
+	//equalsmethod
+	public boolean equals(Show show1)
+	{
+		if(this.showname==show1.showname && this.timeofshow==show1.timeofshow)
+		{
+			
+			return true;
+		}
+		return false; 
+	}
+
+}

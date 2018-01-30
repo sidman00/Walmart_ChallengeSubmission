@@ -1,0 +1,9 @@
+package Venueresources;
+
+public class theater 
+{
+	Seats[][] Seating = new Seats[5][10];
+	
+	
+	
+}

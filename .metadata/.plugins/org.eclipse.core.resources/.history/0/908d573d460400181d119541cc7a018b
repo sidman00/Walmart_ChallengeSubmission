@@ -1,0 +1,6 @@
+package Venueresources;
+import java.util.Comparator;
+public class SeatComparator 
+{
+
+}

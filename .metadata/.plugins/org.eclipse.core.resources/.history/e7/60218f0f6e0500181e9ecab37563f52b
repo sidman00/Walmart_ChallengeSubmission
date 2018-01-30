@@ -1,0 +1,30 @@
+package Venueresources;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class VenueTest {
+
+	@Test
+	public void FindBestSeatTest()
+	{
+		Venue Venuefortest = new Venue();
+		Venuefortest.populateTheater();
+		Venuefortest.findBestSeat();
+		assertEquals(39,Venuefortest.findBestSeat());
+		Venuefortest.Seating[3][5].reserveseat(Venuefortest);
+		assertEquals(28,Venuefortest.findBestSeat());
+	}
+	
+	@Test
+	public void CancelReservationTest()
+	{
+		Venue Venuefortest = new Venue();
+		Venuefortest.populateTheater();
+		Venuefortest.Seating[0][0].reserveseat(Venuefortest);
+		assertEquals(54,Venuefortest.getNumberOfSeats());
+		assertTrue(Venuefortest.Seating[0][0].getreserved());	
+	}
+
+}

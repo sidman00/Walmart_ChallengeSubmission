@@ -1,0 +1,39 @@
+package Venueresources;
+
+public class seatHolder implements Runnable 
+{
+
+	Seats holder;
+	Venue VenueForHolding;
+	
+	
+public Seats getHolder() 
+{
+		return holder;
+	}
+
+
+	public void setHolder(Seats holder) 
+	{
+		this.holder = holder;
+	}
+
+
+public void run()
+{
+	long startreferencepoint = System.currentTimeMillis();
+	long endofhold = startreferencepoint+(30*1000);
+	this.holder.reserveseat(VenueForHolding);
+	while(System.currentTimeMillis()<endofhold)
+	{
+		
+		
+	}
+	
+	System.out.println("UPDATE ON HOLD: Your Hold has been terminated");
+}
+	
+	
+}
+
+
