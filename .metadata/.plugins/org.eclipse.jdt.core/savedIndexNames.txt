@@ -1,4 +1,0 @@
-INDEX VERSION 1.130+C:\Walmart_Problem\.metadata\.plugins\org.eclipse.jdt.core
-1855495856.index
-3563242210.index
-3224453301.index

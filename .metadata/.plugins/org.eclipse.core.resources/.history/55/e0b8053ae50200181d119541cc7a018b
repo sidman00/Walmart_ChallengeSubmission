@@ -1,8 +1,0 @@
-package Venueresources;
-
-public class theater 
-{
-	int theaterxdimension;
-	int theaterydimension;
-	Seats[][] Seating = new Seats[0][0];
-}
